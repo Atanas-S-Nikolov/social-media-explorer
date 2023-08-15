@@ -1,0 +1,5 @@
+platform
+{
+  name: string ('YouTube', 'Facebook', 'Instagram'... ),
+  query: string (Search query for the platform. e.g. username for youtube, id for Instagram and so on)
+}
