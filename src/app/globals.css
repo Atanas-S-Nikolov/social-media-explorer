@@ -1,7 +1,16 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 main {
   text-align: center;
 }
 
 img {
   max-width: 100%;
+}
+
+.hidden_el {
+  visibility: hidden;
 }
