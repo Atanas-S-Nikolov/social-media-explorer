@@ -3,11 +3,12 @@ import '@styles/nav/Nav.css';
 import { useState } from 'react';
 import { useMediaQuery, useUpdateEffect } from "@react-hookz/web";
 import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import IconButton from '@components/utils/IconButton';
 import NavButton from '@components/nav/NavButton';
 import Link from 'next/link';
-import { navigationButtons } from '@app/utils/NavigationButtons';
+import { navigationButtons } from '@utils/NavigationButtons';
 import Collapse from '@components/utils/Collapse';
 
 export default function Nav() {
@@ -16,9 +17,17 @@ export default function Nav() {
   const logoAlt = isDesktop ? "Desktop Social Media Explorer Logo" : "Mobile Social Media Explorer Logo";
   const navMenuEl = document.querySelector('.nav_menu');
   const [isCollapseOpen, setIsCollapseOpen] = useState({} as any);
+  const [toggleMenuIcon, setToggleMenuIcon] = useState(<MenuIcon/>);
+  const isToggleMenuBtnVissible = !isDesktop;
 
   useUpdateEffect(() => {
-    isDesktop ? showNavMenu() : hideNavMenu();
+    if (isDesktop) {
+      closeCollapse();
+      showNavMenu();
+    } else {
+      hideNavMenu();
+      handleToggleMenuIconChange();
+    }
   }, [isDesktop])
 
   return (
@@ -49,12 +58,16 @@ export default function Nav() {
           ))}
         </ul>
       </nav>
-      <IconButton
-        className='hamburger'
-        icon={<MenuIcon/>}
-        aria-label='open mobile navigation'
-        onClick={handleHamburgerOnClick}
-      />
+      {
+        isToggleMenuBtnVissible
+          ? <IconButton
+              className='toggle_menu'
+              icon={toggleMenuIcon}
+              aria-label='open mobile navigation'
+              onClick={handleToggleMenuOnClick}
+            />
+          : null
+      }
     </header>
   );
 
@@ -66,16 +79,25 @@ export default function Nav() {
     navMenuEl?.classList.add('hidden_el');
   }
 
+  function closeCollapse() {
+    setIsCollapseOpen(false);
+  }
+
   function handleNavButtonClick(event: React.MouseEvent<HTMLButtonElement>, id: number) {
     event?.preventDefault();
     setIsCollapseOpen((prevState: any[]) => ({ ...prevState, [id]: !prevState[id] }));
   }
 
-  function handleHamburgerOnClick(event: React.MouseEvent<HTMLButtonElement>) {
+  function handleToggleMenuOnClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     navMenuEl?.classList.toggle('hidden_el');
     if (isCollapseOpen) {
-      setIsCollapseOpen(false);
+      closeCollapse();
     }
+    handleToggleMenuIconChange();
+  }
+
+  function handleToggleMenuIconChange() {
+    setToggleMenuIcon(navMenuEl?.classList.contains('hidden_el') ? <MenuIcon/> : <CloseIcon/>);
   }
 }

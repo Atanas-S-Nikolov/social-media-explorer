@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+[![DeepScan grade](https://deepscan.io/api/teams/20913/projects/25320/branches/790483/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=20913&pid=25320&bid=790483)
+
 ## Getting Started
 
 First, run the development server:
