@@ -1,22 +1,14 @@
 import styles from './page.module.css';
+import SearchInput from '@components/utils/SearchInput';
 
 export default function Home() {
   return (
     <main>
+      <h1>Social Media Explorer</h1>
+      <p className={styles.title_secondary}>Explore and analyze Social Media Accounts</p>
       <div className={styles.container}>
-        <div className={styles.img_wrapper}>
-          <img className={styles.logo} src='/youtube-svgrepo-com.svg' alt='Instgram logo'/>
-        </div>
-        <div className={styles.img_wrapper}>
-          <img className={styles.logo} src='/facebook-1-svgrepo-com.svg' alt='Instgram logo'/>
-        </div>
-        <div className={styles.img_wrapper}>
-          <img className={styles.logo} src='/instagram-svgrepo-com.svg' alt='Instgram logo'/>
-        </div>
+        <SearchInput/>
       </div>
-      <p>
-        Placeholder page for Social Media Explorer App before development starts.
-      </p>
     </main>
   )
 }

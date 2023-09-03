@@ -1,24 +1,14 @@
 .container {
+  display: flex;
   justify-content: center;
 }
 
-.img_wrapper {
-  width: fit-content;
-  margin: auto;
+.title_secondary {
+  font-size: medium;
 }
 
-.logo {
-  width: 80px;
-  aspect-ratio: 1 / 1;
-  margin: 1.5em 1em
-}
-
-@media (min-width: 350px) {
-  .container {
-    display: flex;
-  }
-
-  .img_wrapper {
-    margin: 0;
+@media (min-width: 420px) {
+  .title_secondary {
+    font-size: large;
   }
 }
