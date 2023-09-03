@@ -1,9 +1,12 @@
 import './globals.css'
 import Nav from '@components/nav/Nav'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Oxygen } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const oxygen = Oxygen({
+  subsets: ['latin'],
+  weight: '400'
+})
 
 export const metadata: Metadata = {
   title: 'Social Media Explorer',
@@ -17,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={oxygen.className}>
         <Nav/>
         {children}
       </body>

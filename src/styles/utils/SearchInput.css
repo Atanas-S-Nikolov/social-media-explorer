@@ -1,0 +1,70 @@
+.search_input {
+  display: flex;
+  height: 30px;
+}
+
+.select {
+  justify-content: center;
+  height: 120%;
+}
+
+.select_btn {
+  height: 100%;
+}
+
+.search_collapse {
+  display: grid;
+  grid-auto-flow: row;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  box-shadow: 0px 3px 5px lightgray;
+  margin: 0px;
+  position: absolute;
+}
+
+.search_collapse > button {
+  width: 100%;
+  background-color: transparent;
+}
+
+.search_collapse > button:hover {
+  background-color: rgb(245, 245, 245);
+}
+
+.input {
+  height: 30px;
+}
+
+.search_btn {
+  border-radius: 5px;
+  height: 120%;
+  color: white;
+  /* Background colors
+    Youtube: red,
+    Facebook: linear-gradient(to top, #4267B2, #39B9FE),
+    Instagram: radial-gradient(circle at 30% 107%, #feda75 0%,#fa7e1e 5%,#d62976 45%,#962fbf 60%,#4f5bd5 90%)
+    desktop - ellipse, mobile - circle
+  */
+}
+
+.youtube_bg {
+  background: red;
+}
+
+.facebook_bg {
+  background: linear-gradient(to top, #4267B2, #39B9FE);
+}
+
+.instagram_bg {
+  background: radial-gradient(ellipse at 30% 107%, #feda75 0%,#fa7e1e 5%,#d62976 45%,#962fbf 60%,#4f5bd5 90%);
+}
+
+.instagram_mob_bg {
+  background: radial-gradient(circle at 30% 107%, #feda75 0%,#fa7e1e 5%,#d62976 45%,#962fbf 60%,#4f5bd5 90%);
+}
+
+@media (min-width: 420px) {
+  .search_collapse {
+    position: relative;
+  }
+}
