@@ -1,0 +1,69 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: 0 auto;
+  width: 90%;
+  color: gray;
+}
+
+.divider {
+  border-top: 1px solid lightgray;
+}
+
+.contacts_section {
+  justify-content: center;
+}
+
+.contacts_section_text {
+  margin-right: 0px;
+}
+
+.contacts_section a {
+  color: rgb(100, 100, 100);
+  vertical-align: middle;
+}
+
+a + a {
+  margin-left: 7px;
+}
+
+.facebook_link:hover {
+  color: #4267B2;
+}
+
+.instagram_link:hover {
+  color: #962fbf;
+}
+
+.github_link:hover {
+  color: black;
+}
+
+.linkedin_link:hover {
+  color: #0072b1;
+}
+
+.email_link:hover {
+  color: #c71610;
+}
+
+@media (min-width: 440px) {
+  .footer {
+    width: 70%;
+  }
+
+  .contacts_section {
+    display: flex;
+  }
+
+  .contacts_section_text {
+    margin-right: 10px;
+  }
+
+  a + a {
+    margin-left: 10px;
+  }
+}
