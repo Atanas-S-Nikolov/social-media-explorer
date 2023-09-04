@@ -1,6 +1,6 @@
 'use client';
 import '@styles/nav/Nav.css';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useMediaQuery, useUpdateEffect } from "@react-hookz/web";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -15,7 +15,7 @@ export default function Nav() {
   const isDesktop = useMediaQuery('(min-width: 420px)', { initializeWithValue: false });
   const logoSrc = isDesktop ? "/logo-gray.png" : "/mobile-logo-gray.png";
   const logoAlt = isDesktop ? "Desktop Social Media Explorer Logo" : "Mobile Social Media Explorer Logo";
-  const navMenuEl = document.querySelector('.nav_menu');
+  const navMenuEl = useRef<HTMLElement>(null);
   const [isCollapseOpen, setIsCollapseOpen] = useState({} as any);
   const [toggleMenuIcon, setToggleMenuIcon] = useState(<MenuIcon/>);
   const isToggleMenuBtnVissible = !isDesktop;
@@ -35,7 +35,7 @@ export default function Nav() {
       <Link className='logo_link' href='http://localhost:3000'>
         <img className="logo" src={logoSrc} alt={logoAlt}/>
       </Link>
-      <nav className='nav_menu'>
+      <nav className='nav_menu' ref={navMenuEl}>
         <ul className="nav_list">
           {navigationButtons.map((item, index) => (
             <li className="nav_item" key={crypto.randomUUID()}>
@@ -72,11 +72,11 @@ export default function Nav() {
   );
 
   function showNavMenu() {
-    navMenuEl?.classList.remove('hidden_el');
+    navMenuEl.current?.classList.remove('hidden_el');
   }
 
   function hideNavMenu() {
-    navMenuEl?.classList.add('hidden_el');
+    navMenuEl.current?.classList.add('hidden_el');
   }
 
   function closeCollapse() {
@@ -90,7 +90,7 @@ export default function Nav() {
 
   function handleToggleMenuOnClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
-    navMenuEl?.classList.toggle('hidden_el');
+    navMenuEl.current?.classList.toggle('hidden_el');
     if (isCollapseOpen) {
       closeCollapse();
     }
@@ -98,6 +98,6 @@ export default function Nav() {
   }
 
   function handleToggleMenuIconChange() {
-    setToggleMenuIcon(navMenuEl?.classList.contains('hidden_el') ? <MenuIcon/> : <CloseIcon/>);
+    setToggleMenuIcon(navMenuEl.current?.classList.contains('hidden_el') ? <MenuIcon/> : <CloseIcon/>);
   }
 }
