@@ -12,7 +12,7 @@ import { navigationButtons } from '@utils/NavigationButtons';
 import Collapse from '@components/utils/Collapse';
 
 export default function Nav() {
-  const isDesktop = useMediaQuery('(min-width: 420px)', { initializeWithValue: false });
+  const isDesktop = useMediaQuery('(min-width: 426px)', { initializeWithValue: false });
   const logoSrc = isDesktop ? "/logo-gray.png" : "/mobile-logo-gray.png";
   const logoAlt = isDesktop ? "Desktop Social Media Explorer Logo" : "Mobile Social Media Explorer Logo";
   const navMenuEl = useRef<HTMLElement>(null);

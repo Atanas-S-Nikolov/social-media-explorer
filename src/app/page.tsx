@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main>
       <h1>Social Media Explorer</h1>
-      <p className={styles.title_secondary}>Explore and analyze Social Media Accounts</p>
+      <p className={styles.heading_secondary}>Explore and analyze Social Media Accounts</p>
       <div className={styles.container}>
         <SearchInput/>
       </div>

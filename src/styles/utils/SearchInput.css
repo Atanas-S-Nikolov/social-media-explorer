@@ -63,7 +63,7 @@
   background: radial-gradient(circle at 30% 107%, #feda75 0%,#fa7e1e 5%,#d62976 45%,#962fbf 60%,#4f5bd5 90%);
 }
 
-@media (min-width: 420px) {
+@media (min-width: 426px) {
   .search_collapse {
     position: relative;
   }

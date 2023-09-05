@@ -21,7 +21,7 @@ const platforms = [
 ];
 
 export default function SearchInput() {
-  const isDesktop = useMediaQuery('(min-width: 420px)', { initializeWithValue: false });
+  const isDesktop = useMediaQuery('(min-width: 426px)', { initializeWithValue: false });
   const [platform, setPlatform] = useState('Youtube');
   const [inputPlaceholder, setInputPlaceholder] = useState('Enter YouTube username');
   const [selectText, setSelectText] = useState('Youtube');
