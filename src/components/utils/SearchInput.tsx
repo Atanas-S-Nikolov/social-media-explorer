@@ -66,7 +66,7 @@ export default function SearchInput() {
         </Collapse>
       </div>
       <input className='input' placeholder={inputPlaceholder}/>
-      <Button className={`search_btn ${searchBtnBgColorClass}`} text={searchBtnText} startIcon={<SearchIcon/>}/>
+      <Button className={`search_btn ${searchBtnBgColorClass}`} text={searchBtnText} startIcon={<SearchIcon fontSize='small'/>}/>
     </div>
   )
 
