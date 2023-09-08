@@ -37,6 +37,18 @@
   color: purple;
 }
 
+.nav_btn {
+  background-color: transparent;
+  border: none;
+  min-height: 67px;
+  color: purple;
+  font-size: 1em;
+}
+
+.nav_btn:hover {
+  opacity: .5;
+}
+
 .platform_logo {
   width: 20px;
   aspect-ratio: 1 / 1;
