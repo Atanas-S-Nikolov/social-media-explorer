@@ -13,7 +13,7 @@ export default function Footer() {
       <hr className='divider'/>
       <p>© 2023 Social Media Explorer. All rights reserved.</p>
       <section className='contacts_section'>
-        <span className='contacts_section_text'>Developer contacs:</span>
+        <span className='contacts_section_text'>Developer contacts:</span>
         <section className='links'>
           <a className='facebook_link' href='https://www.facebook.com/profile.php?id=100004064927106' target='blank'>
             <FacebookIcon/>

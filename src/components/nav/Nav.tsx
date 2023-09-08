@@ -1,23 +1,32 @@
 'use client';
+
 import '@styles/nav/Nav.css';
+
 import { useState, useRef } from 'react';
 import { useMediaQuery, useUpdateEffect } from "@react-hookz/web";
+
+import Button from "@components/utils/Button";
+import Collapse from '@components/utils/Collapse';
+
+import Link from 'next/link';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import IconButton from '@components/utils/IconButton';
-import NavButton from '@components/nav/NavButton';
-import Link from 'next/link';
+
 import { navigationButtons } from '@utils/NavigationButtons';
-import Collapse from '@components/utils/Collapse';
+import { ButtonProps } from "@appTypes/ButtonProps";
+
+const NavButton = (props: ButtonProps) => <Button className="nav_btn" {...props} />;
 
 export default function Nav() {
-  const isDesktop = useMediaQuery('(min-width: 420px)', { initializeWithValue: false });
+  const isDesktop = useMediaQuery('(min-width: 426px)', { initializeWithValue: false });
   const logoSrc = isDesktop ? "/logo-gray.png" : "/mobile-logo-gray.png";
   const logoAlt = isDesktop ? "Desktop Social Media Explorer Logo" : "Mobile Social Media Explorer Logo";
   const navMenuEl = useRef<HTMLElement>(null);
   const [isCollapseOpen, setIsCollapseOpen] = useState({} as any);
-  const [toggleMenuIcon, setToggleMenuIcon] = useState(<MenuIcon/>);
+  const [toggleMenuIcon, setToggleMenuIcon] = useState(<MenuIcon />);
   const isToggleMenuBtnVissible = !isDesktop;
 
   useUpdateEffect(() => {
@@ -33,39 +42,45 @@ export default function Nav() {
   return (
     <header className='nav'>
       <Link className='logo_link' href='http://localhost:3000'>
-        <img className="logo" src={logoSrc} alt={logoAlt}/>
+        <img className="logo" src={logoSrc} alt={logoAlt} />
       </Link>
       <nav className='nav_menu' ref={navMenuEl}>
         <ul className="nav_list">
-          {navigationButtons.map((item, index) => (
-            <li className="nav_item" key={crypto.randomUUID()}>
-              <NavButton
-                text={item.btnText}
-                endIcon={<ArrowDropDownIcon/>}
-                onClick={(event) => handleNavButtonClick(event, index)}
-              />
-              <Collapse className='platforms_collapse' open={isCollapseOpen[index]}>
-              {item.collapseChilds.map(child => (
-                <div className="platform_btn_wrapper" key={crypto.randomUUID()}>
-                  <NavButton
-                    text={child.text}
-                    startIcon={<img className='platform_logo' src={child.iconSrc} alt={`${child.text} icon`}/>}
-                  />
-                </div>
-              ))}
-              </Collapse>
-            </li>
-          ))}
+          {navigationButtons.map((item, index) => {
+            const { btnText, collapseChilds } = item;
+            return (
+              <li className="nav_item" key={btnText}>
+                <NavButton
+                  text={btnText}
+                  endIcon={<ArrowDropDownIcon />}
+                  onClick={(event) => handleNavButtonClick(event, index)}
+                />
+                <Collapse className='platforms_collapse' open={isCollapseOpen[index]}>
+                  {collapseChilds.map(child => {
+                    const { text, iconSrc } = child;
+                    return (
+                      <div className="platform_btn_wrapper" key={text}>
+                        <NavButton
+                          text={text}
+                          startIcon={<img className='platform_logo' src={iconSrc} alt={`${text} icon`} />}
+                        />
+                      </div>
+                    )
+                  })}
+                </Collapse>
+              </li>
+            )
+          })}
         </ul>
       </nav>
       {
         isToggleMenuBtnVissible
           ? <IconButton
-              className='toggle_menu'
-              icon={toggleMenuIcon}
-              aria-label='open mobile navigation'
-              onClick={handleToggleMenuOnClick}
-            />
+            className='toggle_menu'
+            icon={toggleMenuIcon}
+            aria-label='open mobile navigation'
+            onClick={handleToggleMenuOnClick}
+          />
           : null
       }
     </header>
@@ -98,6 +113,6 @@ export default function Nav() {
   }
 
   function handleToggleMenuIconChange() {
-    setToggleMenuIcon(navMenuEl.current?.classList.contains('hidden_el') ? <MenuIcon/> : <CloseIcon/>);
+    setToggleMenuIcon(navMenuEl.current?.classList.contains('hidden_el') ? <MenuIcon /> : <CloseIcon />);
   }
 }

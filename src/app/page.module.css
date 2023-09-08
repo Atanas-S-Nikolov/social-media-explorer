@@ -3,12 +3,12 @@
   justify-content: center;
 }
 
-.title_secondary {
+.heading_secondary {
   font-size: medium;
 }
 
-@media (min-width: 420px) {
-  .title_secondary {
+@media (min-width: 426px) {
+  .heading_secondary {
     font-size: large;
   }
 }
