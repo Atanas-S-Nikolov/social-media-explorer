@@ -1,9 +1,12 @@
 import '@styles/utils/Button.css';
+
+import { forwardRef, Ref } from "react";
+
 import { ButtonProps } from "@appTypes/ButtonProps";
 
-export default function Button({ className, text, startIcon, endIcon, onClick }: ButtonProps) {
+const Button = forwardRef(({ className, text, startIcon, endIcon, onClick }: ButtonProps, ref: Ref<HTMLButtonElement>) => {
   return (
-    <button className={`btn ${className}`} onClick={onClick}>
+    <button className={`btn ${className}`} onClick={onClick} ref={ref}>
       {
         startIcon
           ? <span className="btn_icon start_icon">
@@ -21,4 +24,7 @@ export default function Button({ className, text, startIcon, endIcon, onClick }:
       }
     </button>
   )
-}
+})
+
+Button.displayName = "Button";
+export default Button;
