@@ -63,7 +63,7 @@ export default function SearchInput() {
           ref={platformBtnRef}
         />
         <Collapse
-          className="search_collapse"
+          className="select_collapse"
           open={isSelectOpen}
           ref={collapseRef}
         >

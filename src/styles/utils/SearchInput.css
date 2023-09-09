@@ -12,7 +12,7 @@
   height: 100%;
 }
 
-.search_collapse {
+.select_collapse {
   display: grid;
   grid-auto-flow: row;
   border: 1px solid lightgray;
@@ -22,12 +22,13 @@
   position: absolute;
 }
 
-.search_collapse > button {
+.select_collapse > button {
   width: 100%;
   background-color: transparent;
+  text-align: left;
 }
 
-.search_collapse > button:hover {
+.select_collapse > button:hover {
   background-color: rgb(245, 245, 245);
 }
 
@@ -64,7 +65,7 @@
 }
 
 @media (min-width: 426px) {
-  .search_collapse {
+  .select_collapse {
     position: relative;
   }
 }
