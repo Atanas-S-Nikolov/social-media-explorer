@@ -1,9 +1,12 @@
 'use client';
+
 import '@styles/utils/SearchInput.css';
-import { useState } from "react";
+
+import { useRef, useState, MouseEvent } from "react";
 import { useMediaQuery, useUpdateEffect } from "@react-hookz/web";
 
 import Button from "./Button";
+import Collapse from "./Collapse";
 
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -11,8 +14,8 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import SearchIcon from '@mui/icons-material/Search';
 
-import Collapse from "./Collapse";
 import { capitalize } from 'underscore.string';
+import useOutsideClick from '../../hooks/useOutsideClick';
 
 const platforms = [
   { text: 'Youtube', icon: <YouTubeIcon/> },
@@ -22,6 +25,8 @@ const platforms = [
 
 export default function SearchInput() {
   const isDesktop = useMediaQuery('(min-width: 426px)', { initializeWithValue: false });
+  const platformBtnRef = useRef<HTMLButtonElement>(null);
+  const collapseRef = useRef<HTMLDivElement>(null);
   const [platform, setPlatform] = useState('Youtube');
   const [inputPlaceholder, setInputPlaceholder] = useState('Enter YouTube username');
   const [selectText, setSelectText] = useState('Youtube');
@@ -44,6 +49,8 @@ export default function SearchInput() {
       setSearchBtnBgColorClass('instagram_mob_bg');
   })
 
+  useOutsideClick(collapseRef, closeSelect, [platformBtnRef])
+
   return (
     <div className='search_input'>
       <div className="select">
@@ -53,33 +60,46 @@ export default function SearchInput() {
           startIcon={selectIcon}
           endIcon={<ArrowDropDownIcon/>}
           onClick={handleSelectOnClick}
+          ref={platformBtnRef}
         />
-        <Collapse className="search_collapse" open={isSelectOpen}>
+        <Collapse
+          className="select_collapse"
+          open={isSelectOpen}
+          ref={collapseRef}
+        >
           {platforms.map((platform, index) => (
             <Button
               key={index}
               text={platform.text}
               startIcon={platform.icon}
-              onClick={event => handlePlatformChange(event, platform.text)}  
+              onClick={(event: MouseEvent<HTMLButtonElement>) => handlePlatformChange(event, platform.text)}  
             />
           ))}
         </Collapse>
       </div>
       <input className='input' placeholder={inputPlaceholder}/>
-      <Button className={`search_btn ${searchBtnBgColorClass}`} text={searchBtnText} startIcon={<SearchIcon fontSize='small'/>}/>
+      <Button
+        className={`search_btn ${searchBtnBgColorClass}`}
+        text={searchBtnText}
+        startIcon={<SearchIcon fontSize='small'/>}
+      />
     </div>
   )
 
-  function handleSelectOnClick(event: React.MouseEvent<HTMLButtonElement>) {
+  function handleSelectOnClick(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
-    closeSelect();
+    toggleSelect();
   }
 
   function closeSelect() {
+    setIsSelectOpen(false);
+  }
+
+  function toggleSelect() {
     setIsSelectOpen(prevState => !prevState);
   }
 
-  function handlePlatformChange(event: React.MouseEvent<HTMLButtonElement>, platform: string) {
+  function handlePlatformChange(event: MouseEvent<HTMLButtonElement>, platform: string) {
     event.preventDefault();
     switch(platform.toLowerCase()) {
       case 'youtube':

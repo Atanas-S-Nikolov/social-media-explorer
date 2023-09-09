@@ -1,4 +1,5 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import SearchInput from "@components/utils/SearchInput.tsx";
 
@@ -24,7 +25,7 @@ describe('SearchInput test', () => {
 
     const selectBtn = document.querySelector('.select_btn');
     fireEvent.click(selectBtn);
-    const selectCollapse = document.querySelector('.search_collapse');
+    const selectCollapse = document.querySelector('.select_collapse');
 
     expect(selectCollapse).toBeInTheDocument();
   })
@@ -35,7 +36,20 @@ describe('SearchInput test', () => {
     const selectBtn = document.querySelector('.select_btn');
     fireEvent.click(selectBtn);
     fireEvent.click(selectBtn);
-    const selectCollapse = document.querySelector('.search_collapse');
+    const selectCollapse = document.querySelector('.select_collapse');
+
+    expect(selectCollapse).not.toBeInTheDocument();
+  })
+
+  it("Should close collapse when user clicks outside of it", async () => {
+    const user = userEvent.setup();
+    render(<SearchInput/>);
+
+    const selectBtn = document.querySelector('.select_btn');
+    const input = screen.getByPlaceholderText(/enter youtube username/i);
+    fireEvent.click(selectBtn);
+    await user.click(input);
+    const selectCollapse = document.querySelector('.select_collapse');
 
     expect(selectCollapse).not.toBeInTheDocument();
   })
@@ -45,7 +59,7 @@ describe('SearchInput test', () => {
 
     const selectBtn = document.querySelector('.select_btn');
     fireEvent.click(selectBtn);
-    const collapsePlatformButton = screen.getByText(/youtube/i, { selector: '.search_collapse button' });
+    const collapsePlatformButton = screen.getByText(/youtube/i, { selector: '.select_collapse button' });
     fireEvent.click(collapsePlatformButton);
     const input = screen.getByPlaceholderText(/enter youtube username/i);
     const searchBtn = document.querySelector('.search_btn');
@@ -59,7 +73,7 @@ describe('SearchInput test', () => {
 
     const selectBtn = document.querySelector('.select_btn');
     fireEvent.click(selectBtn);
-    const collapsePlatformButton = screen.getByText(/facebook/i, { selector: '.search_collapse button' });
+    const collapsePlatformButton = screen.getByText(/facebook/i, { selector: '.select_collapse button' });
     fireEvent.click(collapsePlatformButton);
     const input = screen.getByPlaceholderText(/enter facebook username/i);
     const searchBtn = document.querySelector('.search_btn');
@@ -74,7 +88,7 @@ describe('SearchInput test', () => {
 
     const selectBtn = document.querySelector('.select_btn');
     fireEvent.click(selectBtn);
-    const collapsePlatformButton = screen.getByText(/instagram/i, { selector: '.search_collapse button' });
+    const collapsePlatformButton = screen.getByText(/instagram/i, { selector: '.select_collapse button' });
     fireEvent.click(collapsePlatformButton);
     const input = screen.getByPlaceholderText(/enter instagram id/i);
     const searchBtn = document.querySelector('.search_btn');
@@ -89,7 +103,7 @@ describe('SearchInput test', () => {
 
     const selectBtn = document.querySelector('.select_btn');
     fireEvent.click(selectBtn);
-    const collapsePlatformButton = screen.getByText(/instagram/i, { selector: '.search_collapse button' });
+    const collapsePlatformButton = screen.getByText(/instagram/i, { selector: '.select_collapse button' });
     fireEvent.click(collapsePlatformButton);
     const searchBtn = document.querySelector('.search_btn');
 
