@@ -37,7 +37,7 @@ export default function SearchInput() {
   const platformBtnRef = useRef<HTMLButtonElement>(null);
   const collapseRef = useRef<HTMLDivElement>(null);
   const platformName = useAppSelector(state => state.platform.name);
-  const searchQuery = useAppSelector(state => state.platform.query);
+  //const searchQuery = useAppSelector(state => state.platform.query);
   const [inputPlaceholder, setInputPlaceholder] = useState('Enter YouTube username');
   const [selectText, setSelectText] = useState(platformName);
   const [selectIcon, setSelectIcon] = useState(<YouTubeIcon/>);
