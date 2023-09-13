@@ -26,6 +26,8 @@ module.exports = {
     // Handle module aliases
     '^@appTypes/(.*)$': '<rootDir>/src/appTypes/$1',
     '^@components/(.*)$': '<rootDir>/src/components/$1',
+    '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^@redux/(.*)$': '<rootDir>/src/redux/$1',
     '^@utils/(.*)$': '<rootDir>/src/utils/$1',
   },
   

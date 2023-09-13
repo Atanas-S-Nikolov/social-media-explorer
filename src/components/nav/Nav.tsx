@@ -39,6 +39,36 @@ export default function Nav() {
     }
   }, [isDesktop])
 
+  function showNavMenu() {
+    navMenuEl.current?.classList.remove('hidden_el');
+  }
+
+  function hideNavMenu() {
+    navMenuEl.current?.classList.add('hidden_el');
+  }
+
+  function closeCollapse() {
+    setIsCollapseOpen(false);
+  }
+
+  function handleNavButtonClick(event: React.MouseEvent<HTMLButtonElement>, id: number) {
+    event?.preventDefault();
+    setIsCollapseOpen((prevState: any[]) => ({ ...prevState, [id]: !prevState[id] }));
+  }
+
+  function handleToggleMenuOnClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    navMenuEl.current?.classList.toggle('hidden_el');
+    if (isCollapseOpen) {
+      closeCollapse();
+    }
+    handleToggleMenuIconChange();
+  }
+
+  function handleToggleMenuIconChange() {
+    setToggleMenuIcon(navMenuEl.current?.classList.contains('hidden_el') ? <MenuIcon /> : <CloseIcon />);
+  }
+
   return (
     <header className='nav'>
       <Link className='logo_link' href='http://localhost:3000'>
@@ -85,34 +115,4 @@ export default function Nav() {
       }
     </header>
   );
-
-  function showNavMenu() {
-    navMenuEl.current?.classList.remove('hidden_el');
-  }
-
-  function hideNavMenu() {
-    navMenuEl.current?.classList.add('hidden_el');
-  }
-
-  function closeCollapse() {
-    setIsCollapseOpen(false);
-  }
-
-  function handleNavButtonClick(event: React.MouseEvent<HTMLButtonElement>, id: number) {
-    event?.preventDefault();
-    setIsCollapseOpen((prevState: any[]) => ({ ...prevState, [id]: !prevState[id] }));
-  }
-
-  function handleToggleMenuOnClick(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
-    navMenuEl.current?.classList.toggle('hidden_el');
-    if (isCollapseOpen) {
-      closeCollapse();
-    }
-    handleToggleMenuIconChange();
-  }
-
-  function handleToggleMenuIconChange() {
-    setToggleMenuIcon(navMenuEl.current?.classList.contains('hidden_el') ? <MenuIcon /> : <CloseIcon />);
-  }
 }

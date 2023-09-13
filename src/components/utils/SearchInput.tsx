@@ -2,7 +2,7 @@
 
 import '@styles/utils/SearchInput.css';
 
-import { useRef, useState, MouseEvent } from "react";
+import { useRef, useState, MouseEvent, ChangeEvent } from "react";
 import { useMediaQuery, useUpdateEffect } from "@react-hookz/web";
 
 import Button from "./Button";
@@ -15,7 +15,16 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { capitalize } from 'underscore.string';
+
 import useOutsideClick from '../../hooks/useOutsideClick';
+import useBeforeUnload from '@hooks/useBeforeUnload';
+
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { 
+  updatePlatformNameReducer,
+  updateSearchQueryReducer, 
+  resetPlatformReducer 
+} from '@redux/slices/platformSlice';
 
 const platforms = [
   { text: 'Youtube', icon: <YouTubeIcon/> },
@@ -27,64 +36,34 @@ export default function SearchInput() {
   const isDesktop = useMediaQuery('(min-width: 426px)', { initializeWithValue: false });
   const platformBtnRef = useRef<HTMLButtonElement>(null);
   const collapseRef = useRef<HTMLDivElement>(null);
-  const [platform, setPlatform] = useState('Youtube');
+  const platformName = useAppSelector(state => state.platform.name);
+  const searchQuery = useAppSelector(state => state.platform.query);
   const [inputPlaceholder, setInputPlaceholder] = useState('Enter YouTube username');
-  const [selectText, setSelectText] = useState('Youtube');
+  const [selectText, setSelectText] = useState(platformName);
   const [selectIcon, setSelectIcon] = useState(<YouTubeIcon/>);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [searchBtnText, setSearchBtnText] = useState('Search');
   const [searchBtnBgColorClass, setSearchBtnBgColorClass] = useState('youtube_bg');
+  
+  const dispatch = useAppDispatch();
 
   useUpdateEffect(() => {
     if (isDesktop) {
-      setSelectText(platform);
+      setSelectText(platformName);
       setSearchBtnText('Search');
-      if (platform.toLowerCase() === 'instagram')
+      if (platformName.toLowerCase() === 'instagram')
         setSearchBtnBgColorClass('instagram_bg');
       return;
     }
     setSelectText('');
     setSearchBtnText('');
-    if (platform.toLowerCase() === 'instagram')
+    if (platformName.toLowerCase() === 'instagram')
       setSearchBtnBgColorClass('instagram_mob_bg');
   })
 
-  useOutsideClick(collapseRef, closeSelect, [platformBtnRef])
+  useBeforeUnload(() => dispatch(resetPlatformReducer()));
 
-  return (
-    <div className='search_input'>
-      <div className="select">
-        <Button
-          className='select_btn'
-          text={selectText}
-          startIcon={selectIcon}
-          endIcon={<ArrowDropDownIcon/>}
-          onClick={handleSelectOnClick}
-          ref={platformBtnRef}
-        />
-        <Collapse
-          className="select_collapse"
-          open={isSelectOpen}
-          ref={collapseRef}
-        >
-          {platforms.map((platform, index) => (
-            <Button
-              key={index}
-              text={platform.text}
-              startIcon={platform.icon}
-              onClick={(event: MouseEvent<HTMLButtonElement>) => handlePlatformChange(event, platform.text)}  
-            />
-          ))}
-        </Collapse>
-      </div>
-      <input className='input' placeholder={inputPlaceholder}/>
-      <Button
-        className={`search_btn ${searchBtnBgColorClass}`}
-        text={searchBtnText}
-        startIcon={<SearchIcon fontSize='small'/>}
-      />
-    </div>
-  )
+  useOutsideClick(collapseRef, closeSelect, [platformBtnRef])
 
   function handleSelectOnClick(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -119,8 +98,50 @@ export default function SearchInput() {
         break;
     }
     const capitalizedPlatform = capitalize(platform);
-    setPlatform(capitalizedPlatform);
+    dispatch(updatePlatformNameReducer(capitalizedPlatform));
     setSelectText(capitalizedPlatform);
     closeSelect();
   }
+
+  function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
+    event.preventDefault();
+    setTimeout(() => {
+      dispatch(updateSearchQueryReducer(event.target.value));
+    }, 400)
+  }
+
+  return (
+    <div className='search_input'>
+      <div className="select">
+        <Button
+          className='select_btn'
+          text={selectText}
+          startIcon={selectIcon}
+          endIcon={<ArrowDropDownIcon/>}
+          onClick={handleSelectOnClick}
+          ref={platformBtnRef}
+        />
+        <Collapse
+          className="select_collapse"
+          open={isSelectOpen}
+          ref={collapseRef}
+        >
+          {platforms.map((platform, index) => (
+            <Button
+              key={index}
+              text={platform.text}
+              startIcon={platform.icon}
+              onClick={(event: MouseEvent<HTMLButtonElement>) => handlePlatformChange(event, platform.text)}  
+            />
+          ))}
+        </Collapse>
+      </div>
+      <input className='input' placeholder={inputPlaceholder} onChange={handleInputChange}/>
+      <Button
+        className={`search_btn ${searchBtnBgColorClass}`}
+        text={searchBtnText}
+        startIcon={<SearchIcon fontSize='small'/>}
+      />
+    </div>
+  )
 }

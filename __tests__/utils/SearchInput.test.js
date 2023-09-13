@@ -1,9 +1,9 @@
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import SearchInput from "@components/utils/SearchInput.tsx";
 
-import { resizeScreen } from "../../__mocks__/testUtils";
+import { render, resizeScreen } from "../../__mocks__/testUtils";
 
 afterEach(cleanup);
 
@@ -108,5 +108,18 @@ describe('SearchInput test', () => {
     const searchBtn = document.querySelector('.search_btn');
 
     expect(searchBtn).toHaveClass('instagram_mob_bg');
+  })
+
+  it("Should set search query after 400 millis when user types in the input", () => {
+    jest.useFakeTimers();
+    jest.spyOn(global, 'setTimeout');
+    render(<SearchInput/>);
+
+    const input = screen.getByPlaceholderText(/enter youtube username/i);
+    fireEvent.change(input, { target: { value: 'test' } });
+
+    expect(setTimeout).toBeCalledTimes(1);
+    expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 400);
+    expect(input.value).toBe('test');
   })
 })
