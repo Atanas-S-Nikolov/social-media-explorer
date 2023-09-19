@@ -30,6 +30,7 @@
     "react-redux": "^8.1.2",
     "redux-persist": "^6.0.0",
     "typescript": "5.2.2",
+    "underscore": "^1.13.6",
     "underscore.string": "^3.3.6"
   },
   "devDependencies": {

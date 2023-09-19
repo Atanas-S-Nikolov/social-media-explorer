@@ -20,9 +20,12 @@
       }
     ],
     "paths": {
+      "@app/_api/*": ["./src/app/_api/*"],
       "@appTypes/*": ["./src/appTypes/*"],
       "@components/*": ["./src/components/*"],
+      "@constants/*": ["./src/constants/*"],
       "@hooks/*": ["./src/hooks/*"],
+      "@models/*": ["./src/models/*"],
       "@redux/*": ["./src/redux/*"],
       "@styles/*": ["./src/styles/*"],
       "@utils/*": ["./src/utils/*"],

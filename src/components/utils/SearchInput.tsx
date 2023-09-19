@@ -15,16 +15,15 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { capitalize } from 'underscore.string';
+import { debounce } from 'underscore';
 
-import useOutsideClick from '../../hooks/useOutsideClick';
+import useOutsideClick from '@hooks/useOutsideClick';
 import useBeforeUnload from '@hooks/useBeforeUnload';
 
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
-import { 
-  updatePlatformNameReducer,
-  updateSearchQueryReducer, 
-  resetPlatformReducer 
-} from '@redux/slices/platformSlice';
+import { updatePlatformReducer, resetPlatformReducer } from '@redux/slices/platformSlice';
+
+import { getChannels } from '@app/_api/services/YoutubeService';
 
 const platforms = [
   { text: 'Youtube', icon: <YouTubeIcon/> },
@@ -37,7 +36,7 @@ export default function SearchInput() {
   const platformBtnRef = useRef<HTMLButtonElement>(null);
   const collapseRef = useRef<HTMLDivElement>(null);
   const platformName = useAppSelector(state => state.platform.name);
-  //const searchQuery = useAppSelector(state => state.platform.query);
+  const [searchQuery, setSearchQuery] = useState('');
   const [inputPlaceholder, setInputPlaceholder] = useState('Enter YouTube username');
   const [selectText, setSelectText] = useState(platformName);
   const [selectIcon, setSelectIcon] = useState(<YouTubeIcon/>);
@@ -98,16 +97,20 @@ export default function SearchInput() {
         break;
     }
     const capitalizedPlatform = capitalize(platform);
-    dispatch(updatePlatformNameReducer(capitalizedPlatform));
+    dispatch(updatePlatformReducer(capitalizedPlatform));
     setSelectText(capitalizedPlatform);
     closeSelect();
   }
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
     event.preventDefault();
-    setTimeout(() => {
-      dispatch(updateSearchQueryReducer(event.target.value));
-    }, 400)
+    const { value } = event.target;
+    const debouncedFn = debounce(() => {
+      setSearchQuery(value);
+      getChannels(value);
+    }, 400);
+
+    debouncedFn();
   }
 
   return (

@@ -15,7 +15,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import IconButton from '@components/utils/IconButton';
 
-import { navigationButtons } from '@utils/NavigationButtons';
+import { navigationButtons } from '@utils/navigationButtons';
 import { ButtonProps } from "@appTypes/ButtonProps";
 
 const NavButton = (props: ButtonProps) => <Button className="nav_btn" {...props} />;
