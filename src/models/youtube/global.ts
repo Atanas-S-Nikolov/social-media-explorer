@@ -1,5 +1,3 @@
-import { BrandingSettings, ContentDetails, Statistics } from "./channels";
-
 import { thumbnailsKey } from "@constants/youtubeConstants";
 
 export interface PageInfo {
@@ -15,13 +13,13 @@ export interface YoutubeGlobal extends Kind {
   etag: string;
 }
 
-export interface ItemId extends Kind {
+interface ItemId extends Kind {
   videoId: string;
   channelId: string;
   playlistId: string;
 }
 
-interface Item extends YoutubeGlobal {
+export interface Item extends YoutubeGlobal {
   id: ItemId;
 }
 
@@ -30,6 +28,7 @@ export interface Snippet {
   channelId: string;
   title: string;
   description: string;
+  customUrl: string;
   thumbnails: {
     [thumbnailsKey]: {
       url: string,
@@ -39,9 +38,4 @@ export interface Snippet {
   }
 }
 
-export interface ChannelItem extends Item {
-  brandingSettings: BrandingSettings;
-  contentDetails: ContentDetails;
-  snippet: Snippet;
-  statistics: Statistics;
-}
+

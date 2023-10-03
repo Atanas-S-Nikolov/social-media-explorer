@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  name: "Youtube"
+  name: "youtube"
 };
 
 export const platformSlice = createSlice({

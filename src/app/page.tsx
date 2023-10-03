@@ -1,5 +1,5 @@
 import styles from './page.module.css';
-import SearchInput from '@components/utils/SearchInput';
+import SearchInput from '@components/search/SearchInput';
 
 export default function Home() {
   return (

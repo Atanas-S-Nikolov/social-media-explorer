@@ -1,3 +1,5 @@
+import { Item, Snippet } from "./global";
+
 export interface ContentDetails {
   relatedPlaylists: {
     likes: string;
@@ -24,4 +26,19 @@ export interface BrandingSettings {
     defaultLanguage: string;
     country: string;
   }
+}
+
+export interface ChannelItem {
+  id: string;
+  brandingSettings: BrandingSettings;
+  contentDetails: ContentDetails;
+  snippet: Snippet;
+  statistics: Statistics;
+}
+
+export interface SearchChannelItem extends Item {
+  brandingSettings: BrandingSettings;
+  contentDetails: ContentDetails;
+  snippet: Snippet;
+  statistics: Statistics;
 }

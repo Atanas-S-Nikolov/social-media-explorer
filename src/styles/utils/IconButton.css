@@ -9,4 +9,5 @@
 .icon_btn:hover {
   /* box-shadow: 0px 0px 10px lightgray; */
   opacity: .5;
+  cursor: pointer;
 }

@@ -1,12 +1,12 @@
 import youtube from "../youtube";
 
 import { SEARCH_URL, CHANNELS_URL } from "@constants/urlConstants";
-import { BRANDING_SETTINGS, CHANNEL } from "@constants/youtubeConstants";
-import { ChannelItem } from "@models/youtube/global";
+import { BRANDING_SETTINGS, CHANNEL, SNIPPET } from "@constants/youtubeConstants";
+import { ChannelItem, SearchChannelItem } from "@models/youtube/channels";
 import { YoutubeGlobalResponse } from "@models/youtube/responses";
 import { resolveAxiosResponse } from "../utils/RequestUtils";
 
-function searchChannels(query: string): Promise<YoutubeGlobalResponse<ChannelItem>> {
+function searchChannels(query: string): Promise<YoutubeGlobalResponse<SearchChannelItem>> {
   return resolveAxiosResponse(youtube.get(SEARCH_URL, {
     params: {
       q: query,
@@ -19,20 +19,26 @@ function findChannels(chanelIds: string): Promise<YoutubeGlobalResponse<ChannelI
   return resolveAxiosResponse(youtube.get(CHANNELS_URL, {
     params: {
       id: chanelIds,
-      part: BRANDING_SETTINGS
+      part: `${BRANDING_SETTINGS},${SNIPPET}`
     }
   }));
 }
 
-export async function getChannels(query: string): Promise<YoutubeGlobalResponse<ChannelItem>> {
-  const { items } = await searchChannels(query);
+function getChannelIds(items?: SearchChannelItem[]) {
   let channelIds = "";
-  const itemsLength = items.length;
-  for (let index = 0; index < itemsLength; index++) {
-    const id = items[index].id.channelId;
-    index === itemsLength - 1
-      ? channelIds += id
-      : channelIds += `${id},`
+  if (items) {
+    const itemsLength = items.length;
+    for (let index = 0; index < itemsLength; index++) {
+      const id = items[index].id.channelId;
+      index === itemsLength - 1
+        ? channelIds += id
+        : channelIds += `${id},`
+    }
   }
-  return await findChannels(channelIds);
+  return channelIds;
+}
+
+export async function getChannels(query: string): Promise<ChannelItem[]> {
+  const items = (await searchChannels(query))?.items;
+  return (await findChannels(getChannelIds(items))).items;
 }
