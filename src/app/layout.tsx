@@ -1,8 +1,11 @@
 import './globals.css'
-import Nav from '@components/nav/Nav'
-import Footer from '@components/footer/Footer'
+
 import type { Metadata } from 'next'
 import { Oxygen } from 'next/font/google'
+
+import Nav from '@components/nav/Nav'
+import Footer from '@components/footer/Footer'
+import Providers from '@components/utils/Providers'
 
 const oxygen = Oxygen({
   subsets: ['latin'],
@@ -22,9 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={oxygen.className}>
-        <Nav/>
-        {children}
-        <Footer/>
+        <Providers>
+          <Nav/>
+          {children}
+          <Footer/>
+        </Providers>
       </body>
     </html>
   )

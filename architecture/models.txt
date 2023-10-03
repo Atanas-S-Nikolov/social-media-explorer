@@ -1,5 +1,21 @@
-platform
+Stored in global state (Redux Toolkit, Zustand, MobX, Jotai...)
+Platform
 {
-  name: string ('YouTube', 'Facebook', 'Instagram'... ),
+  name: string ('YouTube', 'Facebook', 'Instagram'...),
   query: string (Search query for the platform. e.g. username for youtube, id for Instagram and so on)
+}
+
+Authenticated users:
+
+User
+{
+  username: string,
+  password: string (hashed password), 8-30 characters
+  searches: Search[] (Search history of the user)
+}
+
+Search
+{
+  platform: string,
+  queries: string[] (Search history for specific platform) - max 50
 }

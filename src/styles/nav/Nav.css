@@ -60,9 +60,13 @@
   border-radius: 5px;
 }
 
-@media (min-width: 426px) {
+@media (min-width: 520px) {
   .toggle_menu {
     visibility: hidden;
+  }
+
+  .collapse_reserved_area {
+    height: 67px;
   }
 
   .nav_menu {

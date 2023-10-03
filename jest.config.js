@@ -24,8 +24,13 @@ module.exports = {
     '^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$/i': `<rootDir>/__mocks__/fileMock.js`,
  
     // Handle module aliases
+    '^@app/_api/(.*)$': '<rootDir>/src/app/_api/$1',
     '^@appTypes/(.*)$': '<rootDir>/src/appTypes/$1',
     '^@components/(.*)$': '<rootDir>/src/components/$1',
+    '^@constants/(.*)$': '<rootDir>/src/constants/$1',
+    '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^@models/(.*)$': '<rootDir>/src/models/$1',
+    '^@redux/(.*)$': '<rootDir>/src/redux/$1',
     '^@utils/(.*)$': '<rootDir>/src/utils/$1',
   },
   
