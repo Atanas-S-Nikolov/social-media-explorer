@@ -31,11 +31,11 @@ a + a {
 }
 
 .facebook_link:hover {
-  color: #4267B2;
+  color: var(--facebook-color);
 }
 
 .instagram_link:hover {
-  color: #962fbf;
+  color: var(--instagram-color);
 }
 
 .github_link:hover {
@@ -50,7 +50,7 @@ a + a {
   color: #c71610;
 }
 
-@media (min-width: 440px) {
+@media (min-width: 520px) {
   .footer {
     width: 70%;
   }

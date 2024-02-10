@@ -6,9 +6,10 @@ afterEach(cleanup);
 
 describe("Footer test", () => {
   it("Should render copyright text", () => {
+    const CURRENT_YEAR = new Date().getFullYear();
     render(<Footer/>);
 
-    const copyrightText = screen.getByText(/© 2023 social media explorer. all rights reserved./i);
+    const copyrightText = screen.getByText(`© ${CURRENT_YEAR} social media explorer. all rights reserved.`,{ exact: false });
 
     expect(copyrightText).toBeInTheDocument();
   });

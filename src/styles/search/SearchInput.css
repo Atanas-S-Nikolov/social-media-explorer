@@ -41,30 +41,37 @@
   height: 120%;
   color: white;
   /* Background colors
-    Youtube: red,
-    Facebook: linear-gradient(to top, #4267B2, #39B9FE),
+    Youtube: red
+    Facebook: new color: #0766FF, old color: linear-gradient(to top, #4267B2, #39B9FE)
     Instagram: radial-gradient(circle at 30% 107%, #feda75 0%,#fa7e1e 5%,#d62976 45%,#962fbf 60%,#4f5bd5 90%)
     desktop - ellipse, mobile - circle
   */
 }
 
 .youtube_bg {
-  background: red;
+  background: var(--youtube-color);
 }
 
 .facebook_bg {
-  background: linear-gradient(to top, #4267B2, #39B9FE);
+  background: var(--facebook-color);
+  /* background: linear-gradient(to top, #4267B2, #39B9FE); */
 }
 
 .instagram_bg {
-  background: radial-gradient(ellipse at 30% 107%, #feda75 0%,#fa7e1e 5%,#d62976 45%,#962fbf 60%,#4f5bd5 90%);
+  background: radial-gradient(ellipse at 30% 107%, var(--instagram-yellow-color) 0%,var(--instagram-orange-color) 5%,
+  var(--instagram-pink-color) 45%,var(--instagram-color) 60%,var(--instagram-indigo-color) 90%);
 }
 
 .instagram_mob_bg {
-  background: radial-gradient(circle at 30% 107%, #feda75 0%,#fa7e1e 5%,#d62976 45%,#962fbf 60%,#4f5bd5 90%);
+  background: radial-gradient(cirlce at 30% 107%, var(--instagram-yellow-color) 0%,var(--instagram-orange-color) 5%,
+  var(--instagram-pink-color) 45%,var(--instagram-color) 60%,var(--instagram-indigo-color) 90%);
 }
 
-@media (min-width: 426px) {
+@media (min-width: 520px) {
+  .input {
+    width: 300px;
+  }
+
   .select_collapse {
     position: relative;
   }

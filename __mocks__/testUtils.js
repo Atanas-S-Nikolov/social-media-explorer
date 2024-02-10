@@ -1,5 +1,9 @@
 import mediaQuery from 'css-mediaquery';
 
+import { render } from '@testing-library/react';
+
+import Providers from '@components/utils/Providers.tsx';
+
 function createMatchMedia(width) {
   return (query) => {
     return {
@@ -15,6 +19,13 @@ function createMatchMedia(width) {
   };
 }
 
-export function resizeScreen(width) {
+const resizeScreen = (width) => {
   window.matchMedia = createMatchMedia(width);
 }
+
+const renderWithProviders = (ui, options) => render(ui, {wrapper: Providers, ...options});
+
+export { 
+  resizeScreen,
+  renderWithProviders as render
+};
