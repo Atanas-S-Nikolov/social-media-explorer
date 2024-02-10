@@ -11,7 +11,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import Link from "next/link";
 import { YOUTUBE_URL } from "@constants/urlConstants";
 
-export default function SearchItem({ itemUrl, imgSrc, title }: SearchItemProps) {
+export default function SearchItem({ itemId, itemUrl, imgSrc, title }: SearchItemProps) {
   const { name: platformName } = useAppSelector(state => state.platform);
   const [itemBorderClass, setItemBorderClass] = useState("");
 
@@ -33,7 +33,7 @@ export default function SearchItem({ itemUrl, imgSrc, title }: SearchItemProps) 
     <section className={`search_item ${itemBorderClass}`}>
       <img src={imgSrc} alt={title}/>
       <div className="wrapper">
-        <Link className="link" href={`/account/${title}/${itemUrl}`}>{title}</Link>
+        <Link className="link" href={`/account/${itemId}/${itemUrl}`}>{title}</Link>
         <Link className="visit_icon-btn" href={`${YOUTUBE_URL}/${itemUrl}`} target="blank"><OpenInNewIcon/></Link>
       </div>
     </section>

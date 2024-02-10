@@ -27,7 +27,7 @@ export default function Result({
             const { url } = item.snippet.thumbnails.default;
             const { title } = item.brandingSettings.channel;
             const itemUrl = customUrl ? customUrl : id;
-            return <SearchItem key={id} itemUrl={itemUrl} imgSrc={url} title={title}/>;
+            return <SearchItem key={id} itemId={id} itemUrl={itemUrl} imgSrc={url} title={title}/>;
           })}
       </Suspense>
     </main>
